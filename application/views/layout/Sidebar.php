@@ -1,8 +1,20 @@
+<style>
+.iconku{
+  background-repeat: no-repeat;
+  background-image: url(./assets/img/campaign.png);
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  background-origin: initial;
+}
+</style>        
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url('');?>" class="site_title"><i class="glyphicon glyphicon-lamp"></i> <span style="
-                font-family: monospace; font-size: inherit;">J A N S E N</span></a>
+              <a href="<?php echo base_url('');?>" class="site_title"><div class="iconku"></div> <span style="
+                font-family: monospace; font-size: inherit; margin-left: 65px;">Project</span></a>
             </div>
             <div class="clearfix"></div>
             <!-- menu profile quick info -->

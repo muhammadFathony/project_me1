@@ -16,7 +16,7 @@ class Login extends CI_Controller {
 		if ($this->session->userdata('log_in')==TRUE) {
 			redirect('Home');
 		} else {
-		$this->load->view('login');
+		$this->load->view('Signin');
 		}
 	}
 
@@ -72,9 +72,9 @@ class Login extends CI_Controller {
 					$this->session->set_userdata( $userdata );
 					$this->session->set_flashdata('successMessage', '<div class="alert alert-success">Berhasil Masuk, welcome &nbsp;'.$this->session->userdata['nama_user'].'</div>');
 					if ($this->session->userdata('level') == "administrator") {
-						redirect('Home','refresh');
+						redirect('Userlog','refresh');
 					} else if ($this->session->userdata('level') == "admin"){
-						redirect('Home','refresh');
+						redirect('Userlog','refresh');
 					}else if ($this->session->userdata('level') == "pimpinan") {
 						redirect('Home','refresh');
 					} else if ($this->session->userdata('level') == "user") {
@@ -86,7 +86,7 @@ class Login extends CI_Controller {
 					
 				}
 			} else {
-				$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Ada Kesalahan Pastinya </div>');
+				$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Akun tidak di temukan.</div>');
 				redirect('login','refresh');
 				
 			}
