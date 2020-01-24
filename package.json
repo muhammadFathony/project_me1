@@ -7,7 +7,7 @@
     "bootstrap": "^3.3.7",
     "express": "^4.16.3",
     "http": "^0.0.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "serialport": "^6.2.2",
     "socket.io": "^2.1.1"
   },
