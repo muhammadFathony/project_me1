@@ -10,12 +10,10 @@ class Userlog extends CI_Controller {
 			$this->session->set_flashdata('errorMessage','<div class="alert alert-danger">Jangan Lupa Login !!!</div>');
 			redirect('login');
 		}
-   			
-        }
+   	}
 
 	public function index()
 	{
-		
 		$this->load->view('Userlog');
 	}
 

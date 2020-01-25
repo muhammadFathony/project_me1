@@ -1,15 +1,4 @@
-<style>
-.iconku{
-  background-repeat: no-repeat;
-  background-image: url(./assets/img/campaign.png);
-  width: 50px;
-  height: 50px;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  background-origin: initial;
-}
-</style>        
+       
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
