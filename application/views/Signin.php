@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Sign Account</title>
+	<title>Sistem Pembelajaran Warna</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<?php echo base_url()?>assets/img/campaign.png"/>
+	<link rel="icon" type="image/png" href="<?php echo base_url()?>assets/img/book.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -33,7 +33,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
-					Account Login
+					Selamat Datang
 				</span>
                 <?php echo $this->session->flashdata('errorMessage');?>
                 <?php echo $this->session->flashdata('successMessage');?>
@@ -51,7 +51,7 @@
 
 					<div class="container-login100-form-btn m-t-32">
 						<button class="login100-form-btn">
-							Login
+							Masuk
 						</button>
 					</div>
 

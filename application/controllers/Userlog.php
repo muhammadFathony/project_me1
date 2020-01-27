@@ -24,10 +24,10 @@ class Userlog extends CI_Controller {
 	}
 
 	function daftar(){
-		$this->form_validation->set_rules('nama', 'Username', 'trim|required|min_length[5]|max_length[30]');
-		$this->form_validation->set_rules('pasword', 'Password', 'trim|required|min_length[5]');
-		$this->form_validation->set_rules('ulang', 'Repeat Password', 'required|matches[pasword]');
-		$this->form_validation->set_rules('akses', 'Level', 'required');
+		$this->form_validation->set_rules('nama', 'Username', 'trim|required|min_length[5]', array('required' => 'Username, harus di isi (min 5 huruf)', 'min_length' => 'Username, panjang karakter min 5 huruf'));
+		$this->form_validation->set_rules('pasword', 'Password', 'trim|required|min_length[5]', array('required' => 'Password harus di isi'));
+		$this->form_validation->set_rules('ulang', 'Repeat Password', 'required|matches[pasword]', array('matches' => 'Repeat Password harus sama'));
+		$this->form_validation->set_rules('akses', 'Level', 'required', array('required' => 'Hak akses harus di isi')); 
 		if ($this->form_validation->run() == FALSE) {
 			$error = validation_errors();
 			echo json_encode(['eror'=> $error]);
@@ -42,8 +42,6 @@ class Userlog extends CI_Controller {
 	
 
 	function edit(){
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');
-		$this->form_validation->set_rules('repeat_password', 'Password sama', 'trim|required|matches[password]',array('required'=>'Pastikan %s'));
 		$this->form_validation->set_rules('nama_user', 'Nama', 'trim|required');
 		$this->form_validation->set_rules('level', 'Hak Akses', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
@@ -57,7 +55,7 @@ class Userlog extends CI_Controller {
 							
 							'level' => $this->input->post('level')
 						);
-			$data = $this->M_userlog->edit($objcet, $encrypt);
+			$data = $this->M_userlog->edit($objcet, $encrypt, $password);
 			echo json_encode($data);
 		}
 		

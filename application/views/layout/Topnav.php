@@ -11,17 +11,11 @@
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <?php ($this->session->userdata('log_in')) ?>
-                    <img src="<?php echo base_url();?>assets/img/newrealJansen.png" alt=""><?php echo $this->session->userdata('nama_user') ?>
+                    <img src="<?php echo base_url();?>assets/img/book.png" alt=""><?php echo $this->session->userdata('nama_user') ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <!-- <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li> -->
+                   
                     <?php if ($this->session->userdata('level')=='administrator' || $this->session->userdata('level')=='admin') {?>    
                     <li><a href="<?php echo base_url('Userlog'); ?>"><i class="fa fa-users pull-right"></i>Users</a></li>
                     <?php }?>
@@ -29,7 +23,7 @@
                   </ul>
                 </li>
                 <!-- setting profil -->
-                <li role="presentation" class="dropdown">
+                <li role="presentation" class="dropdown hide">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-plus-square-o"></i>
                     <span class="badge bg-green" id="total_masuk"></span>
@@ -40,7 +34,7 @@
                   </ul>
                   <!-- looping -->
                 </li>
-                <li role="presentation" class="dropdown">
+                <li role="presentation" class="dropdown hide">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-minus-square-o"></i>
                     <span class="badge bg-green" id="total_permintaan"></span>

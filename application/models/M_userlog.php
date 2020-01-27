@@ -7,7 +7,6 @@ class M_userlog extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('user');
 		$this->db->order_by('id_user', 'desc');
-		$this->db->limit(5);
 		$query = $this->db->get();
 		return $query->result();
 	}	
@@ -19,13 +18,14 @@ class M_userlog extends CI_Model {
 		return $query->result_array();
 	}
 
-	function edit($objcet, $encrypt)
+	function edit($objcet, $encrypt, $password)
 	{
 		$this->db->set('id_user', $objcet['id_user']);
 		$this->db->set('nama_user', $objcet['nama_user']);
-		$this->db->set('password', $encrypt);
 		$this->db->set('level',$objcet['level']);
-
+		if($password != ''){
+			$this->db->set('password', $encrypt);
+		}
 		$this->db->where('id_user', $objcet['id_user']);
 		$data = $this->db->update('user');
 		return $data;

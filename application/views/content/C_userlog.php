@@ -56,11 +56,8 @@
                         
                         <select class="form-control hapus" id="akses" name="akses">
                           <option></option>
-                          <option value="administrator">Administrator</option>
                           <option value="admin">Admin</option>
-                          <option value="user">User</option>
-                          <option value="pimpinan">Pimpinan</option>
-  
+                          <option value="guru">Guru</option>  
                         </select>
                         </div>
                       </div>
@@ -119,8 +116,7 @@
                         <select class="form-control reset" name="level" id="level">
                           <option></option>
                           <option value="admin">Admin</option>
-                          <option value="user">User</option>
-                          <option value="pimpinan">Pimpinan</option>
+                          <option value="guru">Guru</option>
                         </select>
                         </div>
                       </div>
@@ -199,16 +195,10 @@
 
         
 <script src="<?php echo base_url();?>assets/js/jquery.js"></script>
-<script src="<?php echo base_url();?>assets/js/notification.js"></script>
+
 <link rel="stylesheet" href="<?php echo base_url();?>assets/sweetalert/css/sweetalert.css" />
 <script src="<?php echo base_url();?>assets/sweetalert/lib/sweet-alert.js"></script>
 <script type="text/javascript">
-notif_in();
-notif_out();
-list_in();
-list_out();
-update_out();
-update_in();
   $(function() {
     tampildata();
     var table = $('#tbuser').DataTable();
@@ -230,7 +220,7 @@ update_in();
                   '<td>'+data[i].level+'</td>'+
                   '<td>'+data[i].created_at+'</td>'+
                   '<td style="text-align:left;">'+
-                    <?php if ($this->session->userdata('level')=='administrator' || $this->session->userdata('level')=='admin') {?>
+                    <?php if ($this->session->userdata('level')=='admin' || $this->session->userdata('level')=='guru') {?>
                           '<a href="javascript:;" class="btn btn-toolbar btn-xs item_edit" data-id_user="'+data[i].id_user+'" data-nama_user="'+data[i].nama_user+'" data-level="'+data[i].level+'"><i class="fa fa-edit"></i></a>'+' '+
                           '<a href="javascript:void(0);" class="btn btn-toolbar btn-xs item_hapus" data-id_user="'+data[i].id_user+'"><i class="fa fa-trash"></i></a>'+
                     <?php } ?>

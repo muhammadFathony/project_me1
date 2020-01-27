@@ -2,7 +2,7 @@
         
 		<footer>
           <div class="pull-right">
-            ©2018 Inventory - Muhammad Fathony Template by <a href="https://colorlib.com">Colorlib</a>
+            ©2018 SPW - Ahmad Abdul Rozaq 
           </div>
           <div class="clearfix"></div>
         </footer>

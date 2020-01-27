@@ -71,24 +71,20 @@ class Login extends CI_Controller {
 					);
 					$this->session->set_userdata( $userdata );
 					$this->session->set_flashdata('successMessage', '<div class="alert alert-success">Berhasil Masuk, welcome &nbsp;'.$this->session->userdata['nama_user'].'</div>');
-					if ($this->session->userdata('level') == "administrator") {
+					if ($this->session->userdata('level') == "admin") {
 						redirect('Userlog','refresh');
-					} else if ($this->session->userdata('level') == "admin"){
+					} else if ($this->session->userdata('level') == "guru"){
 						redirect('Userlog','refresh');
-					}else if ($this->session->userdata('level') == "pimpinan") {
-						redirect('Home','refresh');
-					} else if ($this->session->userdata('level') == "user") {
-						redirect('Home','refresh');
+					} else {
+						redirect('auth', 'refresh');
 					}
 				} else {
 					$this->session->set_flashdata('errorMessage','<div class="alert alert-danger">Ada Kesalahan username / password </div>');
-					redirect('login','refresh');
-					
+					redirect('auth','refresh');					
 				}
 			} else {
 				$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Akun tidak di temukan.</div>');
-				redirect('login','refresh');
-				
+				redirect('auth','refresh');			
 			}
 		} 
 	}
@@ -97,7 +93,7 @@ class Login extends CI_Controller {
 		$data = array('id_user','nama_user','log_in','level' );
 		$this->session->unset_userdata($data);
 		$this->session->set_flashdata('successMessage', '<div class="alert alert-success">Lagout Successfully</div>');
-		redirect('welcome','refresh');
+		redirect('auth','refresh');
 	}
 }
 

@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="<?php echo base_url();?>assets/img/newrealJansen.png" type="image/ico" />
+  <link rel="icon" href="<?php echo base_url();?>assets/img/book.png" type="image/ico" />
 
-    <title>Welcome to JI</title>
+    <title>Sistem Pembelajaran Warna</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url();?>assets/Backend/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
