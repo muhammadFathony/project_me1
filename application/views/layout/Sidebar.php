@@ -14,7 +14,7 @@
               <div class="profile_info">
                 <?php ($this->session->userdata('log_in')) ?>
                 <span>Welcome,</span>
-                <h2><?php echo $this->session->userdata('nama_user').' ( '. $this->session->userdata('level').' )'?></h2>
+                <h2><?php echo $this->session->userdata('nama_user').' <br> ( '. $this->session->userdata('level').' )'?></h2>
 
               </div>
             </div>

@@ -22,19 +22,11 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                <h2>Form Design <small>different form elements</small></h2>
+                <!-- <h2>Form Design <small>different form elements</small></h2> -->
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                    </ul>
-                    </li>
+                    
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                 </ul>
@@ -42,46 +34,52 @@
                 </div>
                 <div class="x_content">
                 <br />
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="<?php echo base_url('Siswa/registrasi_siswa')?>" method="POST">
 
                     <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">NIS <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="text" id="nis" name="nis" required="required" class="form-control col-md-7 col-xs-12">
                     </div>
                     </div>
                     <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nama Lengkap <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="text" id="nama_lengkap" name="nama_lengkap" required="required" class="form-control col-md-7 col-xs-12">
                     </div>
                     </div>
                     <div class="form-group">
-                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
+                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Kelas </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                        <input id="kelas" class="form-control col-md-7 col-xs-12" type="text" name="kelas">
                     </div>
                     </div>
                     <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                        </label>
-                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="gender" value="female"> Female
-                        </label>
+                            <label class="btn btn-default male" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="male"> &nbsp; Laki-laki &nbsp;
+                            </label>
+                            <label class="btn btn-default female" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="female"> Perempuan
+                            </label>
                         </div>
+                        <input type="text" name="jenis_kelamin" id="jenis_kelamin" /> 
                     </div>
                     </div>
                     <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Lahir <span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <div class="input-group date" id="myDatepicker2">
+                            <input type="text" class="form-control " id="ttl" name="ttl" placeholder="Tanggal" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div> 
                     </div>
                     </div>
                     <div class="ln_solid"></div>
@@ -92,7 +90,6 @@
                         <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                     </div>
-
                 </form>
                 </div>
             </div>
@@ -101,3 +98,26 @@
     </div>
 </div>
 <!-- /page content -->
+<!-- jQuery -->
+<script src="<?php echo base_url();?>assets/Backend/vendors/jquery/dist/jquery.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    $('#myDatepicker2').datetimepicker({
+                // format: 'DD-MM-YYYY'
+                format: 'DD-MM-YYYY'
+    });
+    $('.male').on('click', function(){
+        //alert('male');
+        $(this).toggleClass("btn-primary")
+        $('.female').removeClass("btn-primary")
+        $('#jenis_kelamin').val('0');
+    })
+    $('.female').on('click', function(){
+        //alert('female');
+        $(this).toggleClass("btn-primary")
+        $('.male').removeClass("btn-primary")
+        $('#jenis_kelamin').val('1')
+    })
+});
+</script>
