@@ -39,11 +39,5 @@ class Siswa extends CI_Controller{
             $data = $this->M_siswa->registrasi_siswa($obj);
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
-        
-        
-         
-        
-        
-        
     }
 }
