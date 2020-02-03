@@ -34,11 +34,11 @@
     <div class="container body">
       <div class="main_container">
          <!-- sidebar -->
-        <?php $this->load->view('layout/sidebar');?>
+        <?php $this->load->view('layout/Sidebar');?>
         <!-- end of sidebar -->
 
         <!-- top navigation -->
-        <?php $this->load->view('layout/topnav');?>
+        <?php $this->load->view('layout/Topnav');?>
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -46,7 +46,7 @@
         <!-- /page content -->
 
         <!-- footer content -->
-        <?php $this->load->view('layout/footer');?>
+        <?php $this->load->view('layout/Footer');?>
         <!-- /footer content -->
       </div>
     </div>

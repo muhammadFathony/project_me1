@@ -194,8 +194,8 @@
           </div>
 
         
-<script src="<?php echo base_url();?>assets/js/jquery.js"></script>
-
+<!-- jQuery -->
+<script src="<?php echo base_url();?>assets/Backend/vendors/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="<?php echo base_url();?>assets/sweetalert/css/sweetalert.css" />
 <script src="<?php echo base_url();?>assets/sweetalert/lib/sweet-alert.js"></script>
 <script type="text/javascript">
@@ -205,7 +205,7 @@
 
     function tampildata(){
       $.ajax({
-        url: '<?php echo base_url('Userlog/list_user') ?>',
+        url: '<?php echo base_url('index.php/Userlog/list_user') ?>',
         type: 'POST',
         dataType: 'json',
         async : false,

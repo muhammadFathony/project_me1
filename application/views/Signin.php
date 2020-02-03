@@ -37,7 +37,7 @@
 				</span>
                 <?php echo $this->session->flashdata('errorMessage');?>
                 <?php echo $this->session->flashdata('successMessage');?>
-				<form class="login100-form validate-form p-b-33 p-t-5" action="<?php echo base_url('login/login_validation');?>" method="post">
+				<form class="login100-form validate-form p-b-33 p-t-5" action="<?php echo base_url('index.php/login/login_validation');?>" method="post">
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
 						<input class="input100" type="text" name="username" placeholder="User name">
