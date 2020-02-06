@@ -14,7 +14,8 @@ class Userlog extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('Userlog');
+		// $this->load->view('Userlog');
+		$this->template->load('Userlog', 'content/C_userlog');
 	}
 
 	function list_user()

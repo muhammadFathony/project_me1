@@ -30,5 +30,13 @@ class M_siswa extends CI_Model{
 
         return $data;
         
-    }
+	}
+	
+	public function edit_siswa($obj)
+	{
+		$nis = $this->input->post('nis');
+		$data = $this->db->where('nis', $nis)->db->update('siswa', $obj);
+		
+		return $data;
+	}
 }

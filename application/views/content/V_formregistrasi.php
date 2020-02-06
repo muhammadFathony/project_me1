@@ -8,12 +8,12 @@
 
             <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
+                <!-- <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Go!</button>
                 </span>
-                </div>
+                </div> -->
             </div>
             </div>
         </div>
@@ -34,13 +34,15 @@
                 </div>
                 <div class="x_content">
                 <br />
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="<?php echo base_url('Siswa/registrasi_siswa')?>" method="POST">
-
+                <form class="form-horizontal form-label-left">
+                <div class="clearfix">
+                    <div class="alert alert-danger print-error-msg col-md-12 col-sm-12 col-xs-12" style="display:none"></div>
+                </div>
                     <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">NIS <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="nis" name="nis" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="text" id="nis" name="nis" required="required" value="<?php echo $nis ?>" class="form-control col-md-7 col-xs-12" readonly>
                     </div>
                     </div>
                     <div class="form-group">
@@ -57,40 +59,40 @@
                     </div>
                     </div>
                     <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin</label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div id="gender" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default male" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                <input type="radio" name="gender" value="male"> &nbsp; Laki-laki &nbsp;
-                            </label>
-                            <label class="btn btn-default female" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                <input type="radio" name="gender" value="female"> Perempuan
-                            </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div id="gender" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default male" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <input type="radio" name="gender" value="male"> &nbsp; Laki-laki &nbsp;
+                                </label>
+                                <label class="btn btn-default female" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <input type="radio" name="gender" value="female"> Perempuan
+                                </label>
+                            </div>
+                            <input type="hidden" name="jenis_kelamin" id="jenis_kelamin" /> 
                         </div>
-                        <input type="text" name="jenis_kelamin" id="jenis_kelamin" /> 
-                    </div>
                     </div>
                     <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Lahir <span class="required">*</span>
-                    </label>
-                    <div class="col-md-2 col-sm-6 col-xs-12">
-                        <div class="input-group date" id="myDatepicker2">
-                            <input type="text" class="form-control " id="ttl" name="ttl" placeholder="Tanggal" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div> 
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Lahir <span class="required">*</span>
+                        </label>
+                        <div class="col-md-2 col-sm-6 col-xs-12">
+                            <div class="input-group date" id="myDatepicker2">
+                                <input type="text" class="form-control " id="ttl" name="ttl" placeholder="Tanggal" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div> 
+                        </div>
                     </div>
-                    </div>
+                    </form>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                         <button class="btn btn-primary" type="button">Cancel</button>
-                        <button class="btn btn-primary" type="reset">Reset</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button id="btn_simpan" class="btn btn-success">Submit</button>
                     </div>
                     </div>
-                </form>
+                
                 </div>
             </div>
             </div>
@@ -103,21 +105,30 @@
 
 <script>
 $(document).ready(function () {
-    $('#myDatepicker2').datetimepicker({
-                // format: 'DD-MM-YYYY'
-                format: 'DD-MM-YYYY'
-    });
-    $('.male').on('click', function(){
-        //alert('male');
-        $(this).toggleClass("btn-primary")
-        $('.female').removeClass("btn-primary")
-        $('#jenis_kelamin').val('0');
-    })
-    $('.female').on('click', function(){
-        //alert('female');
-        $(this).toggleClass("btn-primary")
-        $('.male').removeClass("btn-primary")
-        $('#jenis_kelamin').val('1')
+    
+    $('#btn_simpan').on('click', function(){
+        var nis = $('#nis').val();
+        var nama_lengkap = $('#nama_lengkap').val();
+        var kelas = $('#kelas').val();
+        var jenis_kelamin = $('#jenis_kelamin').val();
+        var ttl = $('#ttl').val();
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('index.php/Siswa/registrasi_siswa')?>",
+            data: { nis : nis, nama_lengkap : nama_lengkap, kelas : kelas, jenis_kelamin : jenis_kelamin, ttl : ttl},
+            dataType: "json",
+            success: function (data) {
+                if ($.isEmptyObject(data.error)) {
+                    swal('Berhasil','','success')
+                    $(".print-error-msg").css('display','none');
+                    window.location.reload();
+                }else {
+                    $(".print-error-msg").css('display','block');
+                    $(".print-error-msg").html(data.error);
+                }
+            }
+        });
     })
 });
 </script>

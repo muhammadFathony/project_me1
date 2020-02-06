@@ -26,7 +26,7 @@
     <link href="<?php echo base_url();?>assets/Backend/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url();?>assets/Backend/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    
+    <link href="<?php echo base_url();?>assets/sweetalert/css/sweetalert.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/Backend/build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -85,7 +85,7 @@
     <script src="<?php echo base_url();?>assets/Backend/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
      <!-- bootstrap-datetimepicker -->    
     <script src="<?php echo base_url();?>assets/Backend/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
+    <script src="<?php echo base_url();?>assets/sweetalert/lib/sweet-alert.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/Backend/build/js/custom.min.js"></script>
     

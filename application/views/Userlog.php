@@ -42,7 +42,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <?php $this->load->view('content/C_userlog');?>
+        <?php echo $contents ?>
         <!-- /page content -->
 
         <!-- footer content -->

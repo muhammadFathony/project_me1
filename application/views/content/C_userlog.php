@@ -241,7 +241,7 @@
     var akses = $('#akses').val();
 
     $.ajax({
-      url: '<?php echo base_url('Userlog/daftar') ?>',
+      url: '<?php echo base_url('index.php/Userlog/daftar') ?>',
       type: 'POST',
       dataType: 'json',
       data: { nama: nama,

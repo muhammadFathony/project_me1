@@ -36,10 +36,10 @@
                   <?php if ($this->session->userdata('level')=='admin' || $this->session->userdata('level')=='user' || $this->session->userdata('level')=='guru') {?>
                     <li><a><i class="fa fa-cubes"></i> Siswa <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url('Data_Barang.html');?>">Lihat Daftar Siswa</a></li>
+                        <li><a href="<?php echo base_url('index.php/siswa/daftar_siswa');?>">Lihat Daftar Siswa</a></li>
                         <?php if ($this->session->userdata('level')=='admin' || $this->session->userdata('level')=='guru') {  
                         ?>
-                        <li><a href="<?php echo base_url('Siswa');?>">Tambah Data Siswa</a></li>
+                        <li><a href="<?php echo base_url('index.php/Siswa');?>">Tambah Data Siswa</a></li>
                         <?php }?>
                       </ul>
                     </li>
