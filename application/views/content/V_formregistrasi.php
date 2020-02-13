@@ -105,7 +105,22 @@
 
 <script>
 $(document).ready(function () {
-    
+    $('#ttl').datetimepicker({
+                // format: 'DD-MM-YYYY'
+                format: 'DD-MM-YYYY'
+    });
+    $('.male').on('click', function(){
+        //alert('male');
+        $(this).toggleClass("btn-primary")
+        $('.female').removeClass("btn-primary")
+        $('#jenis_kelamin').val('1');
+    })
+    $('.female').on('click', function(){
+        //alert('female');
+        $(this).toggleClass("btn-primary")
+        $('.male').removeClass("btn-primary")
+        $('#jenis_kelamin').val('0')
+    })
     $('#btn_simpan').on('click', function(){
         var nis = $('#nis').val();
         var nama_lengkap = $('#nama_lengkap').val();

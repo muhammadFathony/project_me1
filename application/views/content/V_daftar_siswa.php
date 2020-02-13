@@ -10,8 +10,6 @@
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Daftar Siswa</h2> &nbsp;
-                    <a href="<?php echo base_url('Laporan/laporan_suplier.html')?>" class="btn btn-default" target="_blank" ><i class="fa fa-print"> Data Siswa</i></a>
-                    &nbsp;
                   <ul class="nav navbar-right panel_toolbox">
                     &nbsp;
                     <a href="<?php echo base_url('Laporan/DaftarBarang.html')?>" class="btn btn-default" target="_blank" ><i class="fa fa-print"></i></a>
@@ -88,31 +86,24 @@
                 <!-- tabel data -->
                  <div class="x_content">
                   <p>Daftar Siswa <code>Sistem Pembelajaran Warna</code></p> 
-
-                  <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action" id="tbsiswa">
+                    <table class="table table-striped table-bordered" id="tbsiswa">
                       <thead>
-                        <tr class="headings">
-                          <!-- <th>
-                            <input type="checkbox" id="check-all" class="flat">
-                          </th> -->
-                          <th class="column-title">No </th>
-                          <th class="column-title">Nis </th>
-                          <th class="column-title">Nama Lengkap </th>
-                          <th class="column-title">Kelas </th>
-                          <th class="column-title">Tanggal Lahir</th>
-                          <th class="column-title">Jenis Kelamin </th>
-                          <th class="column-title no-link last"><span class="nobr">Action</span>
+                        <tr class="">
+                          
+                          <th class="">No </th>
+                          <th class="">Nis </th>
+                          <th class="">Nama Lengkap </th>
+                          <th class="">Kelas </th>
+                          <th class="">Tanggal Lahir</th>
+                          <th class="">Jenis Kelamin </th>
+                          <th class=""><span class="nobr">Action</span>
                           </th>
                         </tr>
                       </thead>
-                                  
-
                       <tbody id="show_data"> 
-                     
                       </tbody>
                     </table>
-                  </div>
+                  
                 </div>
 
                 <!-- end of tabel data -->
@@ -136,13 +127,13 @@ $(document).ready(function(){
         //alert('male');
         $(this).toggleClass("btn-primary")
         $('.female').removeClass("btn-primary")
-        $('#jenis_kelamin').val('0');
+        $('#jenis_kelamin').val('1');
     })
     $('.female').on('click', function(){
         //alert('female');
         $(this).toggleClass("btn-primary")
         $('.male').removeClass("btn-primary")
-        $('#jenis_kelamin').val('1')
+        $('#jenis_kelamin').val('0')
     })
     var tabel = $('#tbsiswa').dataTable({
         
@@ -179,101 +170,23 @@ $(document).ready(function(){
         var jenis_kelamin = $(this).data('jenis_kelamin')
         if(jenis_kelamin == '0' ){
             //alert('male');
-            $('.male').addClass("btn-primary")
-            $('.female').removeClass("btn-primary")
-            $('#jenis_kelamin').val('0');
-        }else{
             $('.female').addClass("btn-primary")
             $('.male').removeClass("btn-primary")
-            $('#jenis_kelamin').val('1')
+            
+        }else{
+            $('.male').addClass("btn-primary")
+            $('.female').removeClass("btn-primary")
+            
         }
+        $('#jenis_kelamin').val(jenis_kelamin)
         $("#nama_lengkap").val(nama_lengkap)
         $("#nis").val(nis)
         $("#kelas").val(kelas)
         $("#ttl").val(ttl)
         $('#modal_edit').modal('show')
     })
-//ubah status
-$('#savetb').click(function(){
-  var tblist = [];
-  $('#tblist tr').each(function(row, tr){
-    if ($(tr).find('td:eq(0)').text() == "") {
-    }else {
-    var sub = {
-   
-    'id_tag' : $(tr).find('td:eq(0)').text(),
-    'kd_barang' : $(tr).find('td:eq(1)').text()
-   };
-    tblist.push(sub);
-   }
-  });
-    console.log(tblist);
-  //ubah status
-  var data = {'tblist' : tblist};
 
-  $.ajax({
-    data : data,
-    type : 'POST',
-    url : '<?php echo base_url('Data_Barang/ubahliststatus') ?>',
-    crossOrigin : false,
-    dataType : 'JSON',
-    success : function(data){ 
-    $('[name="tag"]').val("");
-    $('[name="kd_brg"]').val(""); 
-    $('#add_tag').modal('hide');  
-    listtag();     
-    }
-
-  });
-});
-// end get kd barang
-
-//add kode tag
-$('#show_data').on('click','.tambah_tag', function(){
-  var kd_barang = $(this).data('kd_barang'); 
-  var nm_barang = $(this).data('nm_barang');
-
-  $('#add_tag').modal('show');
-  $('[name="kd_brg"]').val(kd_barang);
-  $('[name="nm_barang"]').val(nm_barang);
-});
-//end
-
-//delete_LIST
-$('#show_tag').on('click','.item_hapus', function(){
-    var id_tag = $(this).data('id_tag');
-    $.ajax({
-    url: '<?php echo base_url('Data_Barang/delete_tag') ?>',
-    type: 'POST',
-    dataType: 'JSON',
-    data: {id_tag: id_tag},
-    success :function(data){
-      $('[name="id_tag"]').val("");
-      listtag();
-    }
-  });  
-});
-//delete_LIST
-
-// get data edit
-$('#show_data').on('click','.item_edit',function(){
-
- var kd_barang = $(this).data('kd_barang'); 
- var nm_barang = $(this).data('nm_barang');
- var min_stok  = $(this).data('min_stok');
- var stok      = $(this).data('stok');
- var kategori  = $(this).data('kategori');
-
- $('#Modal_Edit').modal('show');
- $('[name="kd_barang"]').val(kd_barang);
- $('[name="nm_barang"]').val(nm_barang);
- $('[name="min_stok"]').val(min_stok);
- $('[name="stok"]').val(stok);
- $('[name="kategori"]').val(kategori);
-});
-//end of get edit
-
-//edit
+    //edit
     $('#btn_update').on('click',function(){
         var nama_lengkap = $('#nama_lengkap').val();
         var nis = $('#nis').val();
@@ -292,101 +205,56 @@ $('#show_data').on('click','.item_edit',function(){
                         jenis_kelamin : jenis_kelamin,
                         },
             success: function(data){
-                
+              if ($.isEmptyObject(data.error)) {
+                $(".print-error-msg").css('display','none');
+                swal('Berhasil','','success');
+                $('#modal_edit').modal('hide')
+                $('#tbsiswa').DataTable().ajax.reload();
+              } else {
+                $(".print-error-msg").css('display','block');
+                $(".print-error-msg").html(data.error);
+              }	
             }
         });
     });
-//end of edit
-//get data for delete record
-  $('#show_data').on('click','.item_delete',function(){
-      var kd_barang = $(this).data('kd_barang');
-      
-      $('#Modal_Delete').modal('show');
-      $('[name="kd_barang"]').val(kd_barang);
-  });
+    //end of edit
 
-//delete record to database
-$('#btn_delete').on('click',function(){
-  var kd_barang = $('#kd_barang').val();
-  $.ajax({
-      type : "POST",
-      url  : "<?php echo base_url('Data_Barang/hapusbarang')?>",
-      dataType : "JSON",
-      data : {kd_barang:kd_barang},
-      success: function(data){
-          $('[name="kd_barang"]').val("");
-          swal('Sukses menghapus data .', '', 'success');
-          $('#Modal_Delete').modal('hide');
-          list_barang();
-      }
-  });
-  return false;
-});
-//delete
+    $('#tbsiswa').on('click', '#btn_delete', function(){
+       
+      var nis = $(this).data('nis')
+      swal({
+				title: "Delete Data ini?",
+				type: "info",
+				showCancelButton: true,
+				confirmButtonText: "Simpan",
+				cancelButtonText: "Cancel",
+				closeOnConfirm: true,
+				closeOnCancel: false
+			},
+      function(isConfirm){
+        if (isConfirm) {
+          $.ajax({
+            url: '<?php echo base_url('index.php/Siswa/delete_siswa')?>',
+            type: 'POST',
+            dataType: 'json',
+            data: {nis : nis},
+            success : function(data){
+            if ($.isEmptyObject(data.error)) {
+                $(".print-error-msg").css('display','none');
+                swal('Berhasil','','success');
+            } else {
+              $(".print-error-msg").css('display','block');
+              $(".print-error-msg").html(data.error);
+            }	
+              $('#tbsiswa').DataTable().ajax.reload();
+            }
+          })
+        }else{
+          swal('Batal');
+        }
+      })			
+    })
 
-//get modal list return
-$('#show_data').on('click','.return_tag', function(){
-  var kd_barang = $(this).data('kd_barang'); 
-  var nm_barang = $(this).data('nm_barang');
-
-  $('#return_tag').modal('show');
-  $('[name="kd_barang"]').val(kd_barang);
-  $('[name="barang"]').val(nm_barang);
-  $.ajax({
-    url: '<?php echo base_url('Data_Barang/list_return') ?>',
-    type: 'POST',
-    dataType: 'json',
-    data: {kd_barang: kd_barang},
-    success : function(data){
-      var html = '';
-          var i;
-          for (i = 0; i < data.length; i++) {
-            html += '<tr>'+
-                    '<td style="text-align:left;">'+data[i].id_tag+'</td>'+
-                    '<td style="text-align:left;">'+data[i].kd_barang+'</td>'+
-                    '<td style="text-align:left;">'+
-                      '<a href="javascript:;" class="btn btn-toolbar bt_return" data-id_tag="'+data[i].id_tag+'"><i class="fa fa-retweet"></i></a>'+
-                      '<a href="javascript:;" class="btn btn-toolbar bt_hapus" data-id_tag="'+data[i].id_tag+'"><i class="fa fa-trash"></i></a>'+
-                    '</td>'+
-                    '</tr>';
-          }
-          $('#show_return').html(html);
-    }
-  })  
-});
-//end of get
-
-//excute for return
-$('#show_return').on('click', '.bt_return', function() {
-  var id_tag = $(this).data('id_tag');
-  $.ajax({
-    url: '<?php echo base_url('Data_Barang/Ex_return') ?>',
-    type: 'POST',
-    dataType: 'json',
-    data: {id_tag: id_tag},
-    success : function(){
-      swal('Sukses', '', 'success');
-      $('#return_tag').modal('hide');
-    }
-  });
-});
-//end of excute
-
-//excute delete
-$('#show_return').on('click', '.bt_hapus', function() {
-  var id_tag = $(this).data('id_tag');
-  $.ajax({
-    url: '<?php echo base_url('Data_Barang/Ex_delete') ?>',
-    type: 'post',
-    dataType: 'json',
-    data: {id_tag: id_tag},
-    success : function(){
-      swal('Terhapus', '', 'success');
-      $('#return_tag').modal('hide');
-    }
-  })
-});
-//end of excute
 });
 </script>
       

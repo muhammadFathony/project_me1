@@ -43,24 +43,25 @@ class Siswa extends CI_Controller{
     }
 
     public function daftar_siswa(){
-        $this->template->load('M_addtional', 'content/V_daftar_siswa');
+        $this->template->load('M_addtional', 'content/V_daftar_siswa'); 
     }
 
     public function get_daftar_siswa(){
-        $data = $this->db->get('siswa')->result();
+        $data = $this->M_siswa->get_siswa();
 
         $hasil = array();
         $result = array();
         $nomor = 0;
         foreach ($data as $siswa) {
             $nomor ++;
+            $siswa->jenis_kelamin == "1" ? $kelamin = "Pria" : $kelamin = "Wanita";
             $hasil[] = array(
                         'nomor' => $nomor,
                         'nis' => $siswa->nis,
                         'nama_lengkap' => $siswa->nama_lengkap,
                         'kelas' => $siswa->kelas,
-                        'ttl' => $siswa->ttl,
-                        'jenis_kelamin' => $siswa->jenis_kelamin,
+                        'ttl' => $siswa->tanggal_lahir,
+                        'jenis_kelamin' => $kelamin,
                         'action' => '<button class="btn btn-primary btn-xs" id="btn_edit"
                                      data-nis="'.$siswa->nis.'"
                                      data-nama_lengkap="'.$siswa->nama_lengkap.'"
@@ -85,7 +86,7 @@ class Siswa extends CI_Controller{
         $this->form_validation->set_rules('ttl', 'ttl', 'trim|required', array('required' => 'Tanggal lahir harus di isi'));
         $dateku = strtotime($this->input->post('ttl'));
         $tanggal = date('Y-m-d', $dateku);
-        $obj = array(
+        $obj = array('nis' => $this->input->post('nis'),
                      'nama_lengkap' => $this->input->post('nama_lengkap'),
                      'kelas' => $this->input->post('kelas'),
                      'jenis_kelamin' => $this->input->post('jenis_kelamin'),
@@ -97,8 +98,21 @@ class Siswa extends CI_Controller{
             $this->output->set_content_type('application/json')->set_output(json_encode($error));
             
         } else {
-            $data = $this->M_siswa->registrasi_siswa($obj);
+            $data = $this->M_siswa->update_siswa($obj);
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+
+    public function delete_siswa()
+    {
+        $nis = $this->input->post('nis');
+        if($nis == ''){
+            $error['error'] = "Nis harus di isi";
+            $this->output->set_content_type('application/json')->set_output(json_encode($error));
+        } else {
+            $data = $this->M_siswa->delete_siswa($nis);
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+            
         }
     }
 }

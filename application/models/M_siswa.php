@@ -24,6 +24,13 @@ class M_siswa extends CI_Model{
 		  return $kodejadi;  
 	}
 
+	public function get_siswa()
+	{
+		$data = $this->db->select('*, DATE_FORMAT(ttl, "%d-%m-%Y") as tanggal_lahir')->from('siswa')->get()->result();
+		
+		return $data;
+	}
+ 
     public function registrasi_siswa($obj)
     {
         $data = $this->db->insert('siswa', $obj);
@@ -32,10 +39,24 @@ class M_siswa extends CI_Model{
         
 	}
 	
-	public function edit_siswa($obj)
+	public function update_siswa($obj)
 	{
-		$nis = $this->input->post('nis');
-		$data = $this->db->where('nis', $nis)->db->update('siswa', $obj);
+		$nis = $obj['nis'];
+
+		$field = array('nama_lengkap' => $obj['nama_lengkap'],
+					   'kelas' => $obj['kelas'],
+					   'jenis_kelamin' => $obj['jenis_kelamin'],
+					   'ttl' => $obj['ttl']
+		);
+
+		$data = $this->db->where('nis', $nis)->update('siswa', $field);
+		
+		return $data;
+	}
+
+	public function delete_siswa($nis)
+	{
+		$data = $this->db->where('nis', $nis)->delete('siswa');
 		
 		return $data;
 	}

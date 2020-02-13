@@ -17,7 +17,7 @@
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                    
                     <?php if ($this->session->userdata('level')=='administrator' || $this->session->userdata('level')=='admin') {?>    
-                    <li><a href="<?php echo base_url('Userlog'); ?>"><i class="fa fa-users pull-right"></i>Users</a></li>
+                    <li><a href="<?php echo base_url('index.php/Userlog'); ?>"><i class="fa fa-users pull-right"></i>Users</a></li>
                     <?php }?>
                     <li><a href="<?php echo base_url('index.php/login/logout');?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
