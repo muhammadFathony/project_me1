@@ -44,46 +44,6 @@
                       </ul>
                     </li>
                   <?php } ?>
-                  <?php if ($this->session->userdata('level')=='a' || $this->session->userdata('level')=='a' || $this->session->userdata('level')=='a') {?>
-                    <li><a><i class="fa fa-edit"></i> Kelola Permintaan <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a class="" href="<?php echo base_url('Kelola_Permintaan/lihatpermintaan');?>">Lihat Permintaan</a></li>
-                        <?php if ($this->session->userdata('level')=='a'|| $this->session->userdata('level')=='a') {
-                          ?>
-                        <li><a href="<?php echo base_url('Kelola_Permintaan.html')?>">Buat Permintaan</a></li>
-                        <?php } ?> 
-                      </ul>
-                    </li>
-                  <?php } ?>
-                  <li><a><i class="fa fa-desktop"></i> Test<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url('Kelola_Stok/view_ledger.html') ?>">Test</a></li>
-                      <?php if ($this->session->userdata('level')=='a'|| $this->session->userdata('level')=='a') {
-                      ?>
-                      <li><a href="<?php echo base_url('Kelola_Stok.html') ?>">Tambah Stok</a></li>
-                      <?php } ?>
-                    </ul>
-                  </li>
-                  <?php if ($this->session->userdata('level')=='a' || $this->session->userdata('level')=='a' || $this->session->userdata('level')=='a') {?>
-                    <li><a><i class="fa fa-calendar"></i> Kelola Pemesanan <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <?php if ($this->session->userdata('level')=='a' || $this->session->userdata('level')=='a') {?>
-                        <li><a href="<?php echo base_url('Trend.html') ?>">Metode Trend Moment </span></a></li>
-                        <?php } ?>
-                        <li><a href="<?php echo base_url('Trend/lihat_pemesanan.html') ?>">Lihat Daftar Peramalan </span></a></li>
-                      </ul>
-                    </li>
-                  <?php }?>
-                <?php if ($this->session->userdata('level')=='a') {?>
-                 <li><a><i class="fa fa-truck"></i> Kelola Suplier <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="<?php echo base_url('Suplier/LihatSuplier.html') ?>">Daftar Suplier</a></li>
-                    <?php if ($this->session->userdata('level')=='a') {?>
-                    <li><a href="<?php echo base_url('Suplier.html') ?>">Tambah Suplier</a></li>
-                    <?php }?>
-                  </ul>
-                </li> 
-                <?php } ?>
                 </ul>
               </div>
             </div>
