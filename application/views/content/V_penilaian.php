@@ -85,7 +85,27 @@
                         </div>
                     </div>
                     </form>
-                    <div class="ln_solid"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped table-bordered" id="tbsiswa">
+                      <thead>
+                        <tr class="">
+                          
+                          <th class="">No </th>
+                          <th class="">Nis </th>
+                          <th class="">Nama Lengkap </th>
+                          <th class="">Kelas </th>
+                          <th class="">Tanggal Lahir</th>
+                          <th class="">Jenis Kelamin </th>
+                          <th class=""><span class="nobr">Action</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="show_data"> 
+                      </tbody>
+                    </table>
+                </div>
+                <div class="ln_solid"></div>
                     <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                         <button class="btn btn-primary" type="button">Cancel</button>
@@ -93,7 +113,6 @@
                     </div>
                     </div>
                 
-                </div>
             </div>
             </div>
         </div>
@@ -145,5 +164,32 @@ $(document).ready(function () {
             }
         });
     })
+
+    var tabel = $('#tbsiswa').dataTable({
+        
+        "bProcessing": 	true,
+        "bAutoWidth": 	false,
+        "bserverSide" : 	true,
+        //
+        "order": 		[],
+        "lengthMenu": 	[ 25, 50, 75, 100 ],
+        "sAjaxSource": 	'<?php echo base_url(); ?>index.php/Siswa/get_daftar_siswa',
+     
+        "aoColumns":	[
+                            { "mData"	: "nomor"},
+                            { "mData"	: "nis"},
+                            { "mData"	: "nama_lengkap"},
+                            { "mData"	: "kelas"},
+                            { "mData"	: "ttl"},
+                            { "mData"	: "jenis_kelamin"},
+                            { "mData"	: "action", searchable:false, orderable:false}
+                        ],
+        "columnDefs": 	[
+                            { className: "text-center", "targets": [0,4] },
+                            { width: 30, targets: 0},
+                            { width: 50, targets: 4}
+                        ],
+        "fixedColumns": true
+    });
 });
 </script>

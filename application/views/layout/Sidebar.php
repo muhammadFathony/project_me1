@@ -45,7 +45,7 @@
                     </li>
                     <li><a><i class="fa fa-bullhorn "></i> Penilaian <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a class="" href="<?php echo base_url('Home.html');?>">Penilaian
+                      <li><a class="" href="<?php echo base_url('index.php/Penilaian');?>">Penilaian
                       </a></li>
                     </ul>
                   </li>
