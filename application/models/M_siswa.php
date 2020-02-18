@@ -4,12 +4,12 @@ class M_siswa extends CI_Model{
 
     public function generate_nis()
 	{
-		date_default_timezone_set('Asia/Jakarta');
+		date_default_timezone_set("Asia/Jakarta");
 		$b = date("Ym");
-    	 $this->db->select('RIGHT(nis,4) as kode', FALSE);
-		  $this->db->order_by('nomor','DESC');    
+    	 $this->db->select("RIGHT(nis,4) as kode");
+		  $this->db->order_by("nomor","DESC");    
 		  $this->db->limit(1);    
-		  $query = $this->db->get('siswa');      //cek dulu apakah ada sudah ada kode di tabel.    
+		  $query = $this->db->get("siswa");      //cek dulu apakah ada sudah ada kode di tabel.    
 		  if($query->num_rows() <> 0){      
 		   //jika kode ternyata sudah ada.      
 		   $data = $query->row();      
@@ -26,14 +26,14 @@ class M_siswa extends CI_Model{
 
 	public function get_siswa()
 	{
-		$data = $this->db->select('*, DATE_FORMAT(ttl, "%d-%m-%Y") as tanggal_lahir')->from('siswa')->get()->result();
+		$data = $this->db->select("*, DATE_FORMAT(ttl, '%d-%m-%Y') as tanggal_lahir")->from("siswa")->get()->result();
 		
 		return $data;
 	}
  
     public function registrasi_siswa($obj)
     {
-        $data = $this->db->insert('siswa', $obj);
+        $data = $this->db->insert("siswa", $obj);
 
         return $data;
         
@@ -43,20 +43,20 @@ class M_siswa extends CI_Model{
 	{
 		$nis = $obj['nis'];
 
-		$field = array('nama_lengkap' => $obj['nama_lengkap'],
-					   'kelas' => $obj['kelas'],
-					   'jenis_kelamin' => $obj['jenis_kelamin'],
-					   'ttl' => $obj['ttl']
+		$field = array("nama_lengkap" => $obj['nama_lengkap'],
+					   "kelas" => $obj['kelas'],
+					   "jenis_kelamin" => $obj['jenis_kelamin'],
+					   "ttl" => $obj['ttl']
 		);
 
-		$data = $this->db->where('nis', $nis)->update('siswa', $field);
+		$data = $this->db->where("nis", $nis)->update("siswa", $field);
 		
 		return $data;
 	}
 
 	public function delete_siswa($nis)
 	{
-		$data = $this->db->where('nis', $nis)->delete('siswa');
+		$data = $this->db->where("nis", $nis)->delete("siswa");
 		
 		return $data;
 	}

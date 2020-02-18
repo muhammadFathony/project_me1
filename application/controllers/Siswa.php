@@ -25,11 +25,11 @@ class Siswa extends CI_Controller{
         $this->form_validation->set_rules('ttl', 'ttl', 'trim|required', array('required' => 'Tanggal lahir harus di isi'));
         $dateku = strtotime($this->input->post('ttl'));
         $tanggal = date('Y-m-d', $dateku);
-        $obj = array('nis' => $this->M_siswa->generate_nis(),
-                     'nama_lengkap' => $this->input->post('nama_lengkap'),
-                     'kelas' => $this->input->post('kelas'),
-                     'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                     'ttl' => $tanggal
+        $obj = array("nis" => $this->M_siswa->generate_nis(),
+                     "nama_lengkap" => $this->input->post('nama_lengkap'),
+                     "kelas" => $this->input->post('kelas'),
+                     "jenis_kelamin" => $this->input->post('jenis_kelamin'),
+                     "ttl" => $tanggal
         );
 
         if ($this->form_validation->run() == FALSE) {

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2019 at 11:10 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.7
+-- Waktu pembuatan: 18 Feb 2020 pada 06.22
+-- Versi server: 10.4.10-MariaDB
+-- Versi PHP: 7.2.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bahantrendmoment`
+-- Struktur dari tabel `bahantrendmoment`
 --
 
 CREATE TABLE `bahantrendmoment` (
@@ -39,7 +39,7 @@ CREATE TABLE `bahantrendmoment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `bahantrendmoment`
+-- Dumping data untuk tabel `bahantrendmoment`
 --
 
 INSERT INTO `bahantrendmoment` (`no`, `nm_barang`, `kd_barang`, `jumlah`, `id_tkeluar`, `departemen`, `tanggal`) VALUES
@@ -158,14 +158,14 @@ INSERT INTO `bahantrendmoment` (`no`, `nm_barang`, `kd_barang`, `jumlah`, `id_tk
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barang`
+-- Struktur dari tabel `barang`
 --
 
 CREATE TABLE `barang` (
   `kode_barang` varchar(30) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `kedatangan` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `kedatangan` timestamp NULL DEFAULT current_timestamp(),
   `alamat` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telepon` varchar(30) NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `barang`
+-- Dumping data untuk tabel `barang`
 --
 
 INSERT INTO `barang` (`kode_barang`, `nama`, `jumlah`, `kedatangan`, `alamat`, `email`, `telepon`, `suplier`, `kategori`, `id_tag`) VALUES
@@ -185,19 +185,19 @@ INSERT INTO `barang` (`kode_barang`, `nama`, `jumlah`, `kedatangan`, `alamat`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_barang`
+-- Struktur dari tabel `detail_barang`
 --
 
 CREATE TABLE `detail_barang` (
   `id_tag` varchar(80) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '0' COMMENT 'status_masuk_tabel[0=belum / 1=sudah] ',
+  `status` int(2) NOT NULL DEFAULT 0 COMMENT 'status_masuk_tabel[0=belum / 1=sudah] ',
   `kd_barang` varchar(30) NOT NULL,
-  `status_keluar` int(2) NOT NULL DEFAULT '0' COMMENT '0=ready - 1=out',
-  `status_tabel` int(2) NOT NULL DEFAULT '0'
+  `status_keluar` int(2) NOT NULL DEFAULT 0 COMMENT '0=ready - 1=out',
+  `status_tabel` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `detail_barang`
+-- Dumping data untuk tabel `detail_barang`
 --
 
 INSERT INTO `detail_barang` (`id_tag`, `status`, `kd_barang`, `status_keluar`, `status_tabel`) VALUES
@@ -251,7 +251,22 @@ INSERT INTO `detail_barang` (`id_tag`, `status`, `kd_barang`, `status_keluar`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `jawaban`
+--
+
+CREATE TABLE `jawaban` (
+  `nomor` int(11) NOT NULL,
+  `id_pertanyaan` varchar(20) NOT NULL,
+  `id_jawaban` varchar(20) NOT NULL,
+  `jawaban` varchar(255) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -260,7 +275,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`) VALUES
@@ -274,7 +289,7 @@ INSERT INTO `kategori` (`id_kategori`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `master_barang`
+-- Struktur dari tabel `master_barang`
 --
 
 CREATE TABLE `master_barang` (
@@ -287,7 +302,7 @@ CREATE TABLE `master_barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `master_barang`
+-- Dumping data untuk tabel `master_barang`
 --
 
 INSERT INTO `master_barang` (`kd_barang`, `nm_barang`, `min_stok`, `stok`, `id_kategori`, `id_supplier`) VALUES
@@ -321,7 +336,22 @@ INSERT INTO `master_barang` (`kd_barang`, `nm_barang`, `min_stok`, `stok`, `id_k
 -- --------------------------------------------------------
 
 --
--- Table structure for table `po`
+-- Struktur dari tabel `pertanyaan`
+--
+
+CREATE TABLE `pertanyaan` (
+  `nomor` int(11) NOT NULL,
+  `id_pertanyaan` varchar(20) NOT NULL,
+  `pertanyaan` varchar(255) NOT NULL,
+  `kategori_soal` int(11) NOT NULL COMMENT '0=kategori A / 1=kategori B',
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `po`
 --
 
 CREATE TABLE `po` (
@@ -333,7 +363,7 @@ CREATE TABLE `po` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `po`
+-- Dumping data untuk tabel `po`
 --
 
 INSERT INTO `po` (`PO`, `id_supplier`, `jumlah`, `tanggal`, `kd_barang`) VALUES
@@ -354,7 +384,67 @@ INSERT INTO `po` (`PO`, `id_supplier`, `jumlah`, `tanggal`, `kd_barang`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier`
+-- Struktur dari tabel `siswa`
+--
+
+CREATE TABLE `siswa` (
+  `nomor` int(11) NOT NULL,
+  `nis` varchar(20) NOT NULL,
+  `nama_lengkap` varchar(255) NOT NULL,
+  `kelas` varchar(255) NOT NULL,
+  `ttl` date NOT NULL,
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `jenis_kelamin` int(11) DEFAULT NULL COMMENT '0=wanita / 1= pria'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `siswa`
+--
+
+INSERT INTO `siswa` (`nomor`, `nis`, `nama_lengkap`, `kelas`, `ttl`, `updated_at`, `created_at`, `jenis_kelamin`) VALUES
+(15, 'NIS-202002-000001', 'Muhammad', 'aaa', '2020-01-30', '2020-02-06 02:26:18', '2020-02-06 02:26:18', 1),
+(28, 'NIS-202002-000003', 'Budi Hartono', '9A', '2020-02-13', '2020-02-13 03:57:03', '2020-02-13 03:57:03', 1),
+(29, 'NIS-202002-000004', 'Khalifah RahmawatiAS', '10aAS', '2013-02-20', '2020-02-13 03:57:28', '2020-02-13 03:57:28', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `soal`
+--
+
+CREATE TABLE `soal` (
+  `nomor` int(11) NOT NULL,
+  `id_soal` varchar(20) NOT NULL,
+  `id_user` varchar(20) NOT NULL,
+  `nis` varchar(20) NOT NULL,
+  `nilai` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `soal_detail`
+--
+
+CREATE TABLE `soal_detail` (
+  `nomor` int(11) NOT NULL,
+  `id_soal` varchar(20) NOT NULL,
+  `id_pertanyaan` varchar(20) NOT NULL,
+  `id_jawaban` varchar(20) NOT NULL,
+  `jawaban` varchar(255) NOT NULL,
+  `status_jawaban` int(11) DEFAULT NULL COMMENT '0=benar / 1=salah',
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `supplier`
 --
 
 CREATE TABLE `supplier` (
@@ -368,7 +458,7 @@ CREATE TABLE `supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `supplier`
+-- Dumping data untuk tabel `supplier`
 --
 
 INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `id_kategori`, `email`, `telepon`, `fax`) VALUES
@@ -380,18 +470,18 @@ INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `id_kategori`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_pengunjung`
+-- Struktur dari tabel `tbl_pengunjung`
 --
 
 CREATE TABLE `tbl_pengunjung` (
   `pengunjung_id` int(11) NOT NULL,
-  `pengunjung_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `pengunjung_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `pengunjung_ip` varchar(40) DEFAULT NULL,
   `pengunjung_perangkat` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_pengunjung`
+-- Dumping data untuk tabel `tbl_pengunjung`
 --
 
 INSERT INTO `tbl_pengunjung` (`pengunjung_id`, `pengunjung_tanggal`, `pengunjung_ip`, `pengunjung_perangkat`) VALUES
@@ -1354,11 +1444,11 @@ INSERT INTO `tbl_pengunjung` (`pengunjung_id`, `pengunjung_tanggal`, `pengunjung
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbsementara`
+-- Struktur dari tabel `tbsementara`
 --
 
 CREATE TABLE `tbsementara` (
-  `status` int(2) NOT NULL DEFAULT '0' COMMENT '0=out / 1 = list',
+  `status` int(2) NOT NULL DEFAULT 0 COMMENT '0=out / 1 = list',
   `no` int(4) NOT NULL,
   `kd_barang` varchar(80) NOT NULL,
   `nm_barang` varchar(255) NOT NULL,
@@ -1368,7 +1458,7 @@ CREATE TABLE `tbsementara` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbsementara`
+-- Dumping data untuk tabel `tbsementara`
 --
 
 INSERT INTO `tbsementara` (`status`, `no`, `kd_barang`, `nm_barang`, `jumlah`, `id_tmasuk`, `id_tag`) VALUES
@@ -1435,7 +1525,7 @@ INSERT INTO `tbsementara` (`status`, `no`, `kd_barang`, `nm_barang`, `jumlah`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbsementara2`
+-- Struktur dari tabel `tbsementara2`
 --
 
 CREATE TABLE `tbsementara2` (
@@ -1445,11 +1535,11 @@ CREATE TABLE `tbsementara2` (
   `kd_barang` varchar(80) NOT NULL,
   `nm_barang` varchar(255) NOT NULL,
   `jumlah` int(4) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '0' COMMENT '0=list / 1 = out'
+  `status` int(2) NOT NULL DEFAULT 0 COMMENT '0=list / 1 = out'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbsementara2`
+-- Dumping data untuk tabel `tbsementara2`
 --
 
 INSERT INTO `tbsementara2` (`no`, `id_tkeluar`, `id_tag`, `kd_barang`, `nm_barang`, `jumlah`, `status`) VALUES
@@ -1517,7 +1607,7 @@ INSERT INTO `tbsementara2` (`no`, `id_tkeluar`, `id_tag`, `kd_barang`, `nm_baran
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksikeluar`
+-- Struktur dari tabel `transaksikeluar`
 --
 
 CREATE TABLE `transaksikeluar` (
@@ -1525,11 +1615,11 @@ CREATE TABLE `transaksikeluar` (
   `tanggal` date NOT NULL,
   `departemen` varchar(40) DEFAULT NULL,
   `keterangan` varchar(255) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '1' COMMENT '1=Belum dibaca, 0=Sudah Di Baca'
+  `status` int(2) NOT NULL DEFAULT 1 COMMENT '1=Belum dibaca, 0=Sudah Di Baca'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksikeluar`
+-- Dumping data untuk tabel `transaksikeluar`
 --
 
 INSERT INTO `transaksikeluar` (`id_tkeluar`, `tanggal`, `departemen`, `keterangan`, `status`) VALUES
@@ -1699,7 +1789,7 @@ INSERT INTO `transaksikeluar` (`id_tkeluar`, `tanggal`, `departemen`, `keteranga
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksikeluar_detail`
+-- Struktur dari tabel `transaksikeluar_detail`
 --
 
 CREATE TABLE `transaksikeluar_detail` (
@@ -1711,7 +1801,7 @@ CREATE TABLE `transaksikeluar_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksikeluar_detail`
+-- Dumping data untuk tabel `transaksikeluar_detail`
 --
 
 INSERT INTO `transaksikeluar_detail` (`no`, `kd_barang`, `nm_barang`, `jumlah`, `id_tkeluar`) VALUES
@@ -1952,7 +2042,7 @@ INSERT INTO `transaksikeluar_detail` (`no`, `kd_barang`, `nm_barang`, `jumlah`, 
 (469, 'TS000145', 'Screw-04A', 5, 'MI000153');
 
 --
--- Triggers `transaksikeluar_detail`
+-- Trigger `transaksikeluar_detail`
 --
 DELIMITER $$
 CREATE TRIGGER `barang_keluar` AFTER INSERT ON `transaksikeluar_detail` FOR EACH ROW BEGIN
@@ -1966,18 +2056,18 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksimasuk1`
+-- Struktur dari tabel `transaksimasuk1`
 --
 
 CREATE TABLE `transaksimasuk1` (
   `tanggal` date DEFAULT NULL,
   `id_tmasuk` varchar(20) NOT NULL,
   `id_supplier` int(5) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '1' COMMENT '1=Belum dibaca, 0=Sudah Di Baca'
+  `status` int(2) NOT NULL DEFAULT 1 COMMENT '1=Belum dibaca, 0=Sudah Di Baca'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksimasuk1`
+-- Dumping data untuk tabel `transaksimasuk1`
 --
 
 INSERT INTO `transaksimasuk1` (`tanggal`, `id_tmasuk`, `id_supplier`, `status`) VALUES
@@ -2098,7 +2188,7 @@ INSERT INTO `transaksimasuk1` (`tanggal`, `id_tmasuk`, `id_supplier`, `status`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksimasuk_detail1`
+-- Struktur dari tabel `transaksimasuk_detail1`
 --
 
 CREATE TABLE `transaksimasuk_detail1` (
@@ -2110,7 +2200,7 @@ CREATE TABLE `transaksimasuk_detail1` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksimasuk_detail1`
+-- Dumping data untuk tabel `transaksimasuk_detail1`
 --
 
 INSERT INTO `transaksimasuk_detail1` (`no`, `kd_barang`, `nm_barang`, `jumlah`, `id_tmasuk`) VALUES
@@ -2265,7 +2355,7 @@ INSERT INTO `transaksimasuk_detail1` (`no`, `kd_barang`, `nm_barang`, `jumlah`, 
 (389, 'TS000145', 'Screw-04A', 5, 'MU000919');
 
 --
--- Triggers `transaksimasuk_detail1`
+-- Trigger `transaksimasuk_detail1`
 --
 DELIMITER $$
 CREATE TRIGGER `tambah_barang` AFTER INSERT ON `transaksimasuk_detail1` FOR EACH ROW BEGIN
@@ -2279,7 +2369,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -2287,25 +2377,24 @@ CREATE TABLE `user` (
   `nama_user` varchar(255) DEFAULT NULL,
   `level` varchar(20) NOT NULL,
   `password` varchar(300) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `level`, `password`, `created_at`) VALUES
 (1, 'muhammad', 'admin', '$2y$10$ZfqyoIGABRke7ZSFWSYWme7QCyc28eXiUnirWsGu3hvIEg54KQ8Gu', '2019-02-05 03:11:44'),
-(2, 'Dodo', 'user', '$2y$10$sAVqBDg33jUvi0UIp79IAOtWSJnUjj3Hu84W8ozcjIRxxg4/rByEu', '2019-02-05 03:12:04'),
-(5, 'andreas', 'pimpinan', '$2y$10$.nFUGukbxYnZgOjuKhF9Se9QFAtobOGpCdjWc89CUwrInSUAD6KQm', '2018-10-21 13:13:23'),
-(14, 'fathony', 'administrator', '$2y$10$zRRmn.tKQBFSH3f4CBkIluk2k3XB9z2L9Jc3ieBLUZGjPLX8rZGNe', '2018-11-15 06:20:51');
+(14, 'fathony', 'guru', '$2y$10$zRRmn.tKQBFSH3f4CBkIluk2k3XB9z2L9Jc3ieBLUZGjPLX8rZGNe', '2020-01-27 01:27:09'),
+(17, 'toni24', 'guru', '$2y$10$AEgZcw59Teci6vRqoRC9sOiBzcoxgdTw53Q8Ymi3Jl3z9uYlQh6ra', '2020-01-27 01:53:11');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `bahantrendmoment`
+-- Indeks untuk tabel `bahantrendmoment`
 --
 ALTER TABLE `bahantrendmoment`
   ADD PRIMARY KEY (`no`),
@@ -2315,14 +2404,14 @@ ALTER TABLE `bahantrendmoment`
   ADD KEY `id_tkeluar` (`id_tkeluar`);
 
 --
--- Indexes for table `barang`
+-- Indeks untuk tabel `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`kode_barang`),
   ADD UNIQUE KEY `id_tag` (`id_tag`(25));
 
 --
--- Indexes for table `detail_barang`
+-- Indeks untuk tabel `detail_barang`
 --
 ALTER TABLE `detail_barang`
   ADD PRIMARY KEY (`id_tag`),
@@ -2330,13 +2419,19 @@ ALTER TABLE `detail_barang`
   ADD KEY `status` (`status`);
 
 --
--- Indexes for table `kategori`
+-- Indeks untuk tabel `jawaban`
+--
+ALTER TABLE `jawaban`
+  ADD PRIMARY KEY (`nomor`);
+
+--
+-- Indeks untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `master_barang`
+-- Indeks untuk tabel `master_barang`
 --
 ALTER TABLE `master_barang`
   ADD PRIMARY KEY (`kd_barang`),
@@ -2346,14 +2441,33 @@ ALTER TABLE `master_barang`
   ADD KEY `nm_barang` (`nm_barang`);
 
 --
--- Indexes for table `po`
+-- Indeks untuk tabel `po`
 --
 ALTER TABLE `po`
   ADD PRIMARY KEY (`PO`),
   ADD KEY `kd_barang` (`kd_barang`);
 
 --
--- Indexes for table `supplier`
+-- Indeks untuk tabel `siswa`
+--
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`nomor`),
+  ADD KEY `nis` (`nis`);
+
+--
+-- Indeks untuk tabel `soal`
+--
+ALTER TABLE `soal`
+  ADD PRIMARY KEY (`nomor`);
+
+--
+-- Indeks untuk tabel `soal_detail`
+--
+ALTER TABLE `soal_detail`
+  ADD PRIMARY KEY (`nomor`);
+
+--
+-- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`),
@@ -2362,13 +2476,13 @@ ALTER TABLE `supplier`
   ADD KEY `id_kategori` (`id_kategori`);
 
 --
--- Indexes for table `tbl_pengunjung`
+-- Indeks untuk tabel `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
   ADD PRIMARY KEY (`pengunjung_id`);
 
 --
--- Indexes for table `tbsementara`
+-- Indeks untuk tabel `tbsementara`
 --
 ALTER TABLE `tbsementara`
   ADD PRIMARY KEY (`no`),
@@ -2378,7 +2492,7 @@ ALTER TABLE `tbsementara`
   ADD KEY `status` (`status`);
 
 --
--- Indexes for table `tbsementara2`
+-- Indeks untuk tabel `tbsementara2`
 --
 ALTER TABLE `tbsementara2`
   ADD PRIMARY KEY (`no`),
@@ -2388,13 +2502,13 @@ ALTER TABLE `tbsementara2`
   ADD KEY `id_tag` (`id_tag`);
 
 --
--- Indexes for table `transaksikeluar`
+-- Indeks untuk tabel `transaksikeluar`
 --
 ALTER TABLE `transaksikeluar`
   ADD PRIMARY KEY (`id_tkeluar`);
 
 --
--- Indexes for table `transaksikeluar_detail`
+-- Indeks untuk tabel `transaksikeluar_detail`
 --
 ALTER TABLE `transaksikeluar_detail`
   ADD PRIMARY KEY (`no`),
@@ -2403,14 +2517,14 @@ ALTER TABLE `transaksikeluar_detail`
   ADD KEY `nm_barang` (`nm_barang`);
 
 --
--- Indexes for table `transaksimasuk1`
+-- Indeks untuk tabel `transaksimasuk1`
 --
 ALTER TABLE `transaksimasuk1`
   ADD PRIMARY KEY (`id_tmasuk`),
   ADD KEY `id_supplier` (`id_supplier`);
 
 --
--- Indexes for table `transaksimasuk_detail1`
+-- Indeks untuk tabel `transaksimasuk_detail1`
 --
 ALTER TABLE `transaksimasuk_detail1`
   ADD PRIMARY KEY (`no`),
@@ -2418,87 +2532,111 @@ ALTER TABLE `transaksimasuk_detail1`
   ADD KEY `id_tmasuk` (`id_tmasuk`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `bahantrendmoment`
+-- AUTO_INCREMENT untuk tabel `bahantrendmoment`
 --
 ALTER TABLE `bahantrendmoment`
   MODIFY `no` int(80) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
--- AUTO_INCREMENT for table `kategori`
+-- AUTO_INCREMENT untuk tabel `jawaban`
+--
+ALTER TABLE `jawaban`
+  MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `po`
+-- AUTO_INCREMENT untuk tabel `po`
 --
 ALTER TABLE `po`
   MODIFY `PO` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `supplier`
+-- AUTO_INCREMENT untuk tabel `siswa`
+--
+ALTER TABLE `siswa`
+  MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT untuk tabel `soal`
+--
+ALTER TABLE `soal`
+  MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `soal_detail`
+--
+ALTER TABLE `soal_detail`
+  MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
   MODIFY `id_supplier` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
--- AUTO_INCREMENT for table `tbl_pengunjung`
+-- AUTO_INCREMENT untuk tabel `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
   MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=955;
 
 --
--- AUTO_INCREMENT for table `tbsementara`
+-- AUTO_INCREMENT untuk tabel `tbsementara`
 --
 ALTER TABLE `tbsementara`
   MODIFY `no` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
--- AUTO_INCREMENT for table `tbsementara2`
+-- AUTO_INCREMENT untuk tabel `tbsementara2`
 --
 ALTER TABLE `tbsementara2`
   MODIFY `no` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
--- AUTO_INCREMENT for table `transaksikeluar_detail`
+-- AUTO_INCREMENT untuk tabel `transaksikeluar_detail`
 --
 ALTER TABLE `transaksikeluar_detail`
   MODIFY `no` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=470;
 
 --
--- AUTO_INCREMENT for table `transaksimasuk_detail1`
+-- AUTO_INCREMENT untuk tabel `transaksimasuk_detail1`
 --
 ALTER TABLE `transaksimasuk_detail1`
   MODIFY `no` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=390;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `transaksikeluar_detail`
+-- Ketidakleluasaan untuk tabel `transaksikeluar_detail`
 --
 ALTER TABLE `transaksikeluar_detail`
   ADD CONSTRAINT `transaksikeluar_detail_ibfk_1` FOREIGN KEY (`id_tkeluar`) REFERENCES `transaksikeluar` (`id_tkeluar`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `transaksimasuk_detail1`
+-- Ketidakleluasaan untuk tabel `transaksimasuk_detail1`
 --
 ALTER TABLE `transaksimasuk_detail1`
   ADD CONSTRAINT `transaksimasuk_detail1_ibfk_1` FOREIGN KEY (`id_tmasuk`) REFERENCES `transaksimasuk1` (`id_tmasuk`) ON UPDATE CASCADE;
