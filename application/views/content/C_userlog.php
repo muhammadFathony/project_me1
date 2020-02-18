@@ -288,7 +288,7 @@
       var repeat_password = $('#repeat_password').val();
 
       $.ajax({
-        url: '<?php echo base_url('Userlog/edit') ?>',
+        url: '<?php echo base_url('index.php/Userlog/edit') ?>',
         type: 'POST',
         dataType: 'json',
         data: {id_user: id_user,
@@ -329,7 +329,7 @@
     $('#btn_delete').on('click', function(event) {  
     var id_user = $('#id_user').val();
     $.ajax({
-      url: '<?php echo base_url('Userlog/hapus_user') ?>',
+      url: '<?php echo base_url('index.php/Userlog/hapus_user') ?>',
       type: 'POST',
       cache : true,
       dataType: 'JSON',
