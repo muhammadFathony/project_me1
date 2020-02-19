@@ -28,11 +28,7 @@
                   <?php
                     $location = $this->uri->segment(1); 
                   ?>
-                  <li><a><i class="fa fa-info-circle "></i> Beranda <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a class="" href="<?php echo base_url('Home.html');?>">Informasi</a></li>
-                    </ul>
-                  </li>
+                 
                   <?php if ($this->session->userdata('level')=='admin' || $this->session->userdata('level')=='user' || $this->session->userdata('level')=='guru') {?>
                     <li><a><i class="fa fa-cubes"></i> Siswa <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
@@ -47,6 +43,11 @@
                     <ul class="nav child_menu">
                       <li><a class="" href="<?php echo base_url('index.php/Penilaian');?>">Penilaian
                       </a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-cogs "></i> Master Data <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a class="" href="<?php echo base_url('index.php/pertanyaan');?>">Data Pertanyaan</a></li>
                     </ul>
                   </li>
                   <?php } ?>
