@@ -4,12 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Userlog extends CI_Controller {
 	function __construct(){
 
-            parent:: __construct();
-            $this->load->model('M_userlog');
-            if (!$this->session->userdata('log_in')) {
-			$this->session->set_flashdata('errorMessage','<div class="alert alert-danger">Jangan Lupa Login !!!</div>');
-			redirect('login');
-		}
+		parent:: __construct();
+		$this->load->model('M_userlog');
+		// if (!$this->session->userdata('log_in')) {
+		// 	$this->session->set_flashdata('errorMessage','<div class="alert alert-danger">Jangan Lupa Login !!!</div>');
+		// 	redirect('login');
+		// }
    	}
 
 	public function index()

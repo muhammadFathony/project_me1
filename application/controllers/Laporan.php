@@ -20,6 +20,11 @@ class Laporan extends CI_Controller {
 	// //$this->load->view('content/newreport', $data);	
 	// }
 
+	public function test()
+	{
+		echo "ok";
+	}
+	
 	Public function DaftarBarang()
 	{
 		$data['data'] = $this->M_produk->laporan_barang_orderBY();

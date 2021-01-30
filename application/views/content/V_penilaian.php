@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-            <h3>Form Registrasi</h3>
+            <h3>Form Penilaian</h3>
             </div>
 
             <div class="title_right">
@@ -42,7 +42,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">NIS <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="nis" name="nis" required="required" value="<?php echo $nis ?>" class="form-control col-md-7 col-xs-12" readonly>
+                        <input type="text" id="nis" name="nis" required="required" class="form-control col-md-7 col-xs-12">
                     </div>
                     </div>
                     <div class="form-group">
@@ -125,21 +125,49 @@
 <script>
 $(document).ready(function () {
     $('#ttl').datetimepicker({
-                // format: 'DD-MM-YYYY'
-                format: 'DD-MM-YYYY'
+        format: 'DD-MM-YYYY'
     });
+
     $('.male').on('click', function(){
         //alert('male');
         $(this).toggleClass("btn-primary")
         $('.female').removeClass("btn-primary")
         $('#jenis_kelamin').val('1');
     })
+
     $('.female').on('click', function(){
         //alert('female');
         $(this).toggleClass("btn-primary")
         $('.male').removeClass("btn-primary")
         $('#jenis_kelamin').val('0')
     })
+
+    $('#nis').on('keyup', function(){
+        const nis = $(this).val();
+        let gender;
+        if(nis.length > 5){
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url('penilaian/getsiswabynis')?>?nis="+nis,
+                dataType: "json",
+                success: function(data){
+                    data.jenis_kelamin === '1' ? gender = 'Laki-laki' : gender = 'Perempuan';
+                    if(data.jenis_kelamin === '1'){
+                        $('.male').toggleClass("btn-primary")
+                        $('.female').removeClass("btn-primary")
+                    } else {
+                        $('.female').toggleClass("btn-primary")
+                        $('.male').removeClass("btn-primary")
+                    }
+                    $('#nama_lengkap').val(data.nama_lengkap);
+                    $('#kelas').val(data.kelas);
+                    $('#jenis_kelamin').val(data.jenis_kelamin);
+                    $('#ttl').val(moment(data.ttl).format('DD-MM-YYYY'))
+                }
+            })
+        }
+    })
+
     $('#btn_simpan').on('click', function(){
         var nis = $('#nis').val();
         var nama_lengkap = $('#nama_lengkap').val();

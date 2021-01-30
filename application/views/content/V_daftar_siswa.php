@@ -9,7 +9,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Daftar Siswa</h2> &nbsp;
+                  <h2>Daftar Siswa</h2> &nbsp; <a class="btn btn-primary btn-sm" href="<?php echo site_url('siswa')?>">Tambah</a>
                   <ul class="nav navbar-right panel_toolbox">
                     &nbsp;
                    

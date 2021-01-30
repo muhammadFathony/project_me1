@@ -4,12 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_penilaian extends CI_Model {
 
-    public function get_pertanyaan(){
-        
-        $data = $this->db->select('*')->from('pertanyaan')->get()->result();
+   public function getSiswaByNis($nis)
+   {
+       $data = $this->db->where('nis', $nis)->get('siswa')->row();
 
-        return $data;
-    }
+       return $data; 
+   }
 
 }
 

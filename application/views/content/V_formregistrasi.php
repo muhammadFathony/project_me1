@@ -22,6 +22,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
+                <a href="<?php echo site_url('siswa/daftar_siswa')?>">Check Daftar Siswa</a> <code>Sistem Pembelajaran Warna</code> 
                 <!-- <h2>Form Design <small>different form elements</small></h2> -->
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -88,7 +89,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <button class="btn btn-primary" type="button">Cancel</button>
+                        <a class="btn btn-primary" href="<?php echo site_url('siswa/daftar_siswa')?>">Cancel</a>
                         <button id="btn_simpan" class="btn btn-success">Submit</button>
                     </div>
                     </div>
