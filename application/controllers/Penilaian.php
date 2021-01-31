@@ -39,6 +39,63 @@ class Penilaian extends CI_Controller
 
         $this->output->set_content_type('application/json')->set_output(json_encode($insert));
     }
+
+    public function getNilaiSiswa()
+    {
+        $data= $this->db->order_by('created_at', 'desc')->get('penilaian')->result();
+        $result = array();
+        $final = array();
+        $nomor = 0;
+        foreach ($data as $key => $value) {
+            $nomor++;
+            $result[] = array(
+                'nomor' => $nomor,
+                'nis' => $value->nis,
+                'nama_lengkap' => $value->nama_lengkap,
+                'kelas'=> $value->kelas,
+                'nilai' => $value->nilai,
+                'action' => '<button class="btn btn-success btn-xs"
+                            data-nomor="'.$value->nomor.'"
+                            data-nis="'.$value->nis.'"
+                            data-nama_lengkap="'.$value->nama_lengkap.'"
+                            data-kelas="'.$value->kelas.'"
+                            data-nilai="'.$value->nilai.'"
+                            id="btn_edit"
+                            >
+                            <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="btn btn-xs btn-danger"
+                            data-nis="'.$value->nis.'"
+                            data-nomor="'.$value->nomor.'"
+                            id="btn_delete"
+                            ><i class="fa fa-trash"></i>
+                            </button>
+                            '
+            );
+        } 
+        $final = array('aaData' => $result);       
+        $this->output->set_content_type('application/json')->set_output(json_encode($final));
+    }
+
+    public function deleteNilai($nomor, $nis)
+    {
+        $delete = $this->db->where('nomor', $nomor)->where('nis', $nis)->delete('penilaian');
+        $this->output->set_content_type('application/json')->set_output(json_encode($delete));
+    }
+
+    public function editNilai()
+    {
+        $nis = $this->input->post('nis');
+        $nomor = $this->input->post('nomor');
+   
+        $obj = array(
+            'nilai' => $this->input->post('nilai'),
+        );
+
+        $update = $this->db->where('nis', $nis)->where('nomor', $nomor)->update('penilaian', $obj);
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($update));
+    }
 }
 
 /* End of file Penilaian.php */

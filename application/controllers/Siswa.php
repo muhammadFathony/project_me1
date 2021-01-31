@@ -74,7 +74,7 @@ class Siswa extends CI_Controller{
             );
         }
 
-        $result = array('aaData' => $hasil);
+        $result = array('aaData' => $hasil,'message' => $this->uri->segment(2));
         echo json_encode($result);
     }
 

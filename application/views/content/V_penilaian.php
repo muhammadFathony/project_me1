@@ -33,16 +33,16 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <br />
                         <form class="form-horizontal form-label-left">
-                            <div class="clearfix">
-                                <div class="alert alert-danger print-error-msg col-md-12 col-sm-12 col-xs-12" style="display:none"></div>
-                            </div>
+                           
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">NIS <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="nis" name="nis" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                                <div>
+                                    <button id="btn_cari" type="button" class="btn btn-primary btn-sm">Cari</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -93,7 +93,7 @@
                         </form>
                     </div>
                     <div class="x_content">
-                        <table class="table table-striped table-bordered" id="tbsiswa">
+                        <table class="table table-striped table-bordered" id="tbPenilaian">
                             <thead>
                                 <tr class="">
 
@@ -101,17 +101,15 @@
                                     <th class="">Nis </th>
                                     <th class="">Nama Lengkap </th>
                                     <th class="">Kelas </th>
-                                    <th class="">Tanggal Lahir</th>
-                                    <th class="">Jenis Kelamin </th>
+                                    <th class="">Nilai</th>
                                     <th class=""><span class="nobr">Action</span>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="show_data">
+                            <tbody>
                             </tbody>
                         </table>
                     </div>
-                    <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button class="btn btn-primary" type="button">Cancel</button>
@@ -120,6 +118,73 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal cari siswa  -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_siswa">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Pilih Data Siswa</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered" id="tbsiswa">
+                    <thead>
+                        <tr class="">
+                            <th class="">No </th>
+                            <th class="">Nis </th>
+                            <th class="">Nama Lengkap </th>
+                            <th class="">Kelas </th>
+                            <th class="">Tanggal Lahir</th>
+                            <th class="">Jenis Kelamin </th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="show_data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal cari siswa -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Data Barang</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left input_mask" id="form_edit_siswa">
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" id="nis_edit" placeholder="Nis" name="nis_edit" readonly="">
+                        <input type="hidden" name="nomor" id="nomor">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control" id="nama_lengkap_edit" placeholder="Nama Lengkap" readonly name="nama_lengkap_edit" required>
+                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" id="nilai_edit" placeholder="Nilai" name="nilai_edit" required>
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control" id="kelas_edit" placeholder="Kelas" name="kelas_edit" readonly required>
+                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i></button>
+                        <button type="button" type="submit" id="btn_update" class="btn btn-secondary"><i class="fa fa-save"></i></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -160,10 +225,10 @@
                         if (data !== null) {
                             data.jenis_kelamin === '1' ? gender = 'Laki-laki' : gender = 'Perempuan';
                             if (data.jenis_kelamin === '1') {
-                                $('.male').toggleClass("btn-primary")
+                                $('.male').addClass("btn-primary")
                                 $('.female').removeClass("btn-primary")
                             } else {
-                                $('.female').toggleClass("btn-primary")
+                                $('.female').addClass("btn-primary")
                                 $('.male').removeClass("btn-primary")
                             }
                             $('#nama_lengkap').val(data.nama_lengkap);
@@ -181,6 +246,103 @@
                 })
             }
         })
+
+        let tbPenilaian = $('#tbPenilaian').dataTable({
+            "bProcessing": true,
+            "bAutoWidth": false,
+            "bserverSide": true,
+            //
+            "order": [],
+            "lengthMenu": [25, 50, 75, 100],
+            "sAjaxSource": '<?php echo base_url(); ?>penilaian/getNilaiSiswa',
+
+            "aoColumns": [{
+                    "mData": "nomor"
+                },
+                {
+                    "mData": "nis"
+                },
+                {
+                    "mData": "nama_lengkap"
+                },
+                {
+                    "mData": "kelas"
+                },
+                {
+                    "mData": "nilai"
+                },
+                {
+                    "mData": "action"
+                }
+            ],
+            "columnDefs": [{
+                    className: "text-center",
+                    "targets": [0, 4]
+                },
+                {
+                    width: 30,
+                    targets: 0
+                },
+                {
+                    width: 50,
+                    targets: 4
+                }
+            ],
+            "fixedColumns": true
+        })
+
+        var tabel = $('#tbsiswa').dataTable({
+
+            "bProcessing": true,
+            "bAutoWidth": false,
+            "bserverSide": true,
+            //
+            "order": [],
+            "lengthMenu": [25, 50, 75, 100],
+            "sAjaxSource": '<?php echo base_url(); ?>Siswa/get_daftar_siswa',
+
+            "aoColumns": [{
+                    "mData": "nomor"
+                },
+                {
+                    "mData": "nis"
+                },
+                {
+                    "mData": "nama_lengkap"
+                },
+                {
+                    "mData": "kelas"
+                },
+                {
+                    "mData": "ttl"
+                },
+                {
+                    "mData": "jenis_kelamin"
+                }
+            ],
+            "columnDefs": [{
+                    className: "text-center",
+                    "targets": [0, 4]
+                },
+                {
+                    width: 30,
+                    targets: 0
+                },
+                {
+                    width: 50,
+                    targets: 4
+                }
+            ],
+            "fixedColumns": true
+        });
+
+        $('#tbsiswa').on('click', '#btn_edit', function(){
+            $('#modal_edit').modal('show');
+        });
+
+        $('#btn_cari').on('click', function(){
+            $('#modal_siswa').modal('show');
+        });
 
         $('#btn_simpan').on('click', function() {
             const nis = $('#nis').val();
@@ -205,63 +367,73 @@
                     if ($.isEmptyObject(data.error)) {
                         swal('Berhasil', '', 'success')
                         $(".print-error-msg").css('display', 'none');
-                        //window.location.reload();
+                        $('#tbPenilaian').DataTable().ajax.reload();
                     } else {
                         $(".print-error-msg").css('display', 'block');
                         $(".print-error-msg").html(data.error);
                     }
                 }
             });
-        })
+        });
 
-        var tabel = $('#tbsiswa').dataTable({
+        $('#tbPenilaian').on('click', '#btn_delete', function(){
+            const nomor = $(this).data('nomor');
+            const nis = $(this).data('nis');
 
-            "bProcessing": true,
-            "bAutoWidth": false,
-            "bserverSide": true,
-            //
-            "order": [],
-            "lengthMenu": [25, 50, 75, 100],
-            "sAjaxSource": '<?php echo base_url(); ?>index.php/Siswa/get_daftar_siswa',
-
-            "aoColumns": [{
-                    "mData": "nomor"
-                },
-                {
-                    "mData": "nis"
-                },
-                {
-                    "mData": "nama_lengkap"
-                },
-                {
-                    "mData": "kelas"
-                },
-                {
-                    "mData": "ttl"
-                },
-                {
-                    "mData": "jenis_kelamin"
-                },
-                {
-                    "mData": "action",
-                    searchable: false,
-                    orderable: false
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url('penilaian/deleteNilai')?>/"+nomor+'/'+nis,
+                dataType: "JSON",
+                success: function(data){
+                    if(data === true){
+                        swal('Berhasil', '', 'success')
+                    } else {
+                        swal('Maaf', 'delete tidak berhasil', 'error');
+                    }
+                    $('#tbPenilaian').DataTable().ajax.reload();
                 }
-            ],
-            "columnDefs": [{
-                    className: "text-center",
-                    "targets": [0, 4]
+            });
+        });
+
+        $('#tbPenilaian').on('click', '#btn_edit', function(){
+            const nomor = $(this).data('nomor');
+            const nis = $(this).data('nis');
+            const nama_lengkap = $(this).data('nama_lengkap');
+            const kelas = $(this).data('kelas');
+            const nilai = $(this).data('nilai');
+
+            $('#nomor').val(nomor);
+            $('#nis_edit').val(nis);
+            $('#nama_lengkap_edit').val(nama_lengkap);
+            $('#nilai_edit').val(nilai);
+            $('#kelas_edit').val(kelas);
+            $('#modal_edit').modal('show');
+        });
+
+        $('#btn_update').on('click', function(){
+           const nis = $('#nis_edit').val();
+           const nilai = $('#nilai_edit').val();
+           const nomor = $('#nomor').val();
+
+           $.ajax({
+            type: "POST",
+                url: "<?php echo base_url('penilaian/editnilai') ?>",
+                data: {
+                    nis: nis,
+                    nomor: nomor,
+                    nilai: nilai
                 },
-                {
-                    width: 30,
-                    targets: 0
-                },
-                {
-                    width: 50,
-                    targets: 4
+                dataType: "json",
+                success: function(data) {
+                    if(data === true){
+                        $('#tbPenilaian').DataTable().ajax.reload();
+                        swal('Berhasil', 'update sukses', 'success');
+                    } else {
+                        swal('Maaf', 'update gagal', 'info');
+                    }
+                    $('#modal_edit').modal('hide');
                 }
-            ],
-            "fixedColumns": true
+           });
         });
     });
 </script>
