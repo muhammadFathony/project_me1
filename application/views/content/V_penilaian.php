@@ -39,11 +39,10 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">NIS <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="nis" name="nis" required="required" class="form-control col-md-7 col-xs-12">
+                                    <select name="nis" id="nis" required class="form-control  col-md-7 col-xs-12">
+                                    </select>
                                 </div>
-                                <div>
-                                    <button id="btn_cari" type="button" class="btn btn-primary btn-sm">Cari</button>
-                                </div>
+                                
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nama Lengkap <span class="required">*</span>
@@ -87,7 +86,13 @@
                             <div class="form-group">
                                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nilai </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="nilai" class="form-control col-md-7 col-xs-12" type="text" name="nilai">
+                                    <input id="nilai" size="1" maxlength="1" value="0" min="0" max="5" class="form-control col-md-7 col-xs-12" type="number" name="nilai">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan Nilai </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="keterangan" class="form-control col-md-7 col-xs-12" readonly type="text" name="keterangan">
                                 </div>
                             </div>
                         </form>
@@ -95,14 +100,14 @@
                     <div class="x_content">
                         <table class="table table-striped table-bordered" id="tbPenilaian">
                             <thead>
-                                <tr class="">
-
-                                    <th class="">No </th>
-                                    <th class="">Nis </th>
-                                    <th class="">Nama Lengkap </th>
-                                    <th class="">Kelas </th>
-                                    <th class="">Nilai</th>
-                                    <th class=""><span class="nobr">Action</span>
+                                <tr>
+                                    <th>No </th>
+                                    <th>Nis </th>
+                                    <th>Nama Lengkap </th>
+                                    <th>Kelas </th>
+                                    <th>Nilai</th>
+                                    <th>Keterangan</th>
+                                    <th><span class="nobr">Action</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -123,34 +128,6 @@
     </div>
 </div>
 <!-- modal cari siswa  -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_siswa">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Pilih Data Siswa</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped table-bordered" id="tbsiswa">
-                    <thead>
-                        <tr class="">
-                            <th class="">No </th>
-                            <th class="">Nis </th>
-                            <th class="">Nama Lengkap </th>
-                            <th class="">Kelas </th>
-                            <th class="">Tanggal Lahir</th>
-                            <th class="">Jenis Kelamin </th>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="show_data">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- modal cari siswa -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_edit">
     <div class="modal-dialog modal-lg">
@@ -213,7 +190,22 @@
             $('#jenis_kelamin').val('0')
         })
 
-        $('#nis').on('keyup', function() {
+        const showSiswa = () => {
+            let list = '';
+            $.ajax({
+                type: "GET",
+                url: "<?php echo base_url('penilaian/getsiswa')?>",
+                dataType: "JSON",
+                success: function(response){
+                    response.map((data, key)=> {
+                        list += `<option value="${data.nis}">${data.nis}</option>`;
+                    })                  
+                    $('#nis').html(list);
+                }
+            });
+        }
+        showSiswa();
+        $('#nis').on('change', function() {
             const nis = $(this).val();
             let gender;
             if (nis.length > 5) {
@@ -272,6 +264,9 @@
                     "mData": "nilai"
                 },
                 {
+                    "mData": "keterangan"
+                },
+                {
                     "mData": "action"
                 }
             ],
@@ -291,59 +286,6 @@
             "fixedColumns": true
         })
 
-        var tabel = $('#tbsiswa').dataTable({
-
-            "bProcessing": true,
-            "bAutoWidth": false,
-            "bserverSide": true,
-            //
-            "order": [],
-            "lengthMenu": [25, 50, 75, 100],
-            "sAjaxSource": '<?php echo base_url(); ?>Siswa/get_daftar_siswa',
-
-            "aoColumns": [{
-                    "mData": "nomor"
-                },
-                {
-                    "mData": "nis"
-                },
-                {
-                    "mData": "nama_lengkap"
-                },
-                {
-                    "mData": "kelas"
-                },
-                {
-                    "mData": "ttl"
-                },
-                {
-                    "mData": "jenis_kelamin"
-                }
-            ],
-            "columnDefs": [{
-                    className: "text-center",
-                    "targets": [0, 4]
-                },
-                {
-                    width: 30,
-                    targets: 0
-                },
-                {
-                    width: 50,
-                    targets: 4
-                }
-            ],
-            "fixedColumns": true
-        });
-
-        $('#tbsiswa').on('click', '#btn_edit', function(){
-            $('#modal_edit').modal('show');
-        });
-
-        $('#btn_cari').on('click', function(){
-            $('#modal_siswa').modal('show');
-        });
-
         $('#btn_simpan').on('click', function() {
             const nis = $('#nis').val();
             const nama_lengkap = $('#nama_lengkap').val();
@@ -351,6 +293,7 @@
             const jenis_kelamin = $('#jenis_kelamin').val();
             const ttl = $('#ttl').val();
             const nilai = $('#nilai').val();
+            const keterangan = $('#keterangan').val();
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url('penilaian/simpanNilai') ?>",
@@ -360,7 +303,8 @@
                     kelas: kelas,
                     jenis_kelamin: jenis_kelamin,
                     ttl: ttl,
-                    nilai: nilai
+                    nilai: nilai,
+                    keterangan: keterangan
                 },
                 dataType: "json",
                 success: function(data) {
@@ -374,6 +318,15 @@
                     }
                 }
             });
+        });
+
+        $('#nilai').on('keyup', function(){
+            const nilai = $(this).val();
+            nilai.length === 0 && $('#keterangan').val('Belum Berkembang');
+            nilai === '0' && $('#keterangan').val('Belum Berkembang');
+            nilai === '1' && $('#keterangan').val('Mulai Berkembang');
+            nilai === '2' && $('#keterangan').val('Mulai Berkembang');
+            nilai > '2' && $('#keterangan').val('Sudah Berkembang');
         });
 
         $('#tbPenilaian').on('click', '#btn_delete', function(){

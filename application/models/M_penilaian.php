@@ -11,6 +11,13 @@ class M_penilaian extends CI_Model {
        return $data; 
    }
 
+   public function simpanSoal($soal)
+   {
+       $obj = array('soal' => $soal);
+       $insert = $this->db->insert('pertanyaan', $obj);
+       return $insert;
+   }
+
 }
 
 /* End of file M_penilaian.php */

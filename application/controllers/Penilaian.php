@@ -18,6 +18,12 @@ class Penilaian extends CI_Controller
         $this->template->load('M_addtional', 'content/V_penilaian');
     }
 
+    public function getSiswa()
+    {
+        $data = $this->db->get('siswa')->result();
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
     public function getSiswaByNis()
     {
         $nis = $this->input->get('nis');
@@ -32,6 +38,7 @@ class Penilaian extends CI_Controller
             'nama_lengkap' => $this->input->post('nama_lengkap'),
             'kelas' => $this->input->post('kelas'),
             'nilai' => $this->input->post('nilai'),
+            'keterangan' => $this->input->post('keterangan'),
             'guru_penilai' => $this->session->userdata('nama_user')
         );
 
@@ -54,6 +61,7 @@ class Penilaian extends CI_Controller
                 'nama_lengkap' => $value->nama_lengkap,
                 'kelas'=> $value->kelas,
                 'nilai' => $value->nilai,
+                'keterangan' => $value->keterangan,
                 'action' => '<button class="btn btn-success btn-xs"
                             data-nomor="'.$value->nomor.'"
                             data-nis="'.$value->nis.'"

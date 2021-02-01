@@ -45,6 +45,11 @@
                       </a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-bullhorn "></i> Pertanyaan<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a class="" href="<?php echo base_url('Pertanyaan');?>">Mulai Pertanyaan</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-cogs "></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a class="" href="<?php echo base_url('pertanyaan');?>">Data Pertanyaan</a></li>
